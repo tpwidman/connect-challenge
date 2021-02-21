@@ -44,7 +44,7 @@ The lambda service should perform the following in sequence:
 The lambda service is heavily dependent on the dictionary of terms for determining a best fit. This is not a perfect solution. Different words have different weights when combined together. Adjectives and nouns combined together possibly would provide a better fit than say two nouns.
 * Ex: 1-800-CAT-BIRD is probably less valuable than 1-800-BIG-BIRD
 
-Also, theres a case of where proper nouns or corporate would likely be way more valuable than words like prepositions or contractions if you were to add those to the dictionary too. 
+Also, theres a case of where proper nouns or acronyms would likely be way more valuable than words like prepositions or contractions if you were to add those to the dictionary too. 
 * Ex: 1-800-AMC-HELP is probably more valuable than 1-800-BOB-HELP
 
 Caching is not implemented either. Data could be either retrieved from dynamo or for instance if the lambda is still warm, returned from it's own memory, and not do excessive db writes. The in-memory cache could be implemented like: 
