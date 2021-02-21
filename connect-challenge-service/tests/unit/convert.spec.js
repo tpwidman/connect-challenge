@@ -2,7 +2,8 @@ const test = require('ava');
 const _ = require('lodash');
 const {
     findLetterCombinations,
-    findWordCombinations
+    findWordCombinations,
+    getVanity
 } = require('../../lib/convert');
 
 test.serial('Testing findLetterCombinations to test input digits', async t => {
@@ -14,9 +15,13 @@ test.serial('Testing findLetterCombinations to test input digits', async t => {
     t.true(findLetterCombinations("1111111").length === 0)
     t.true(findLetterCombinations("1").length === 0);
 });
-test.only('Testing findWordCombinations to test input digits', async t => {
+test.serial('Testing findWordCombinations to test input digits', async t => {
     const result = findWordCombinations("7765328");
     t.deepEqual(result[0], 'PROJECT');
     t.true(result.every(val => _.isString(val)));
-    t.pass();
+});
+test.serial('Testing getVanity', async t => {
+    const result = getVanity("+12057765328");
+    t.deepEqual(result[0], 'PROJECT');
+    t.true(result.every(val => _.isString(val)));
 })
