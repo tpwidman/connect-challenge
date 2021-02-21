@@ -37,7 +37,7 @@ The lambda service should perform the following in sequence:
 	* If there are not enough words available, return words and digits 
 	* ex: 1-800-810-2473 => 1-800-810-BIRD
 	* Because these tend to be smaller words where not available, The sort is by longest word in the string.
-5. Store these in Dynamo, if there is an error here, log the error and return the numbers back. 
+5. Store these in Dynamo, if there is an error here, log the error and end the call.
 6. Return a set of the 3 most popular word/digit as a return to be processed by Amazon Connect as a string joined by commas.
 
 # Potential improvements

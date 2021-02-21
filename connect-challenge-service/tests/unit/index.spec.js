@@ -17,6 +17,11 @@ test.serial('Testing app handler', async t => {
     t.is(result.vanityNumbersCount, 3);
     t.is(typeof result.vanityNumbersString, "string");
 });
+test.serial('Testing app handler - db throws error', async t => {
+    awsMock.mock("DynamoDB", "putItem", async () => { throw new Error("Something went wrong") });
+    const err = await t.throwsAsync(() => app(event, {db: new AWS.DynamoDB(), tableName: "ConnectChallenge"}));
+    t.true(err instanceof Error)
+});
 test.serial('Testing app handler with a funky phone number', async t => {
     const eventWithFunkyPhoneNumber = _.cloneDeep(event);
     eventWithFunkyPhoneNumber.Details.ContactData.CustomerEndpoint.Address = "1111111"
