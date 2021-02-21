@@ -16,7 +16,7 @@ async function storeInDynamo(db, phoneNumber, vanityNumbers, tableName){
                 S: date.toISOString()
             },
             phoneNumber: {
-                S: "+12052624357"
+                S: phoneNumber
             },
             bestVanityOrdered: {
                 L: vanityNumbers.map(elem => ({S: elem}))
