@@ -21,7 +21,7 @@ test.serial(
         .includes("PROJECT")
     );
 
-    // t.true(findLetterCombinations(null).length === 0)
+    t.true(findLetterCombinations(null).length === 0);
     t.true(findLetterCombinations("1111111").length === 0);
     t.true(findLetterCombinations("1").length === 0);
   }

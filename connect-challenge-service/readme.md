@@ -5,11 +5,10 @@ This AWS Lambda repository solitary function is to generate vanity numbers from 
 │   ├── convert.js            <-- group of functions for generating vanity numbers
 │   ├── dbMethods.js          <-- function for putItem in dynamodb
 │   ├── logUtil.js            <-- shared log utility
-│   ├── updateList.js         <-- script used to filter dictionary
-│   ├── word-dictionary.json  <-- raw dictionary json
 │   └── words.json            <-- dictionary of words sorted by popular use
 ├── tests
 │   └── unit
+│      ├── sample-connect-event.json    <-- sample event to use
 │      ├── convert.spec.js    <-- unit tests for convert functions
 │      └── index.spec.js      <-- unit tests for index file
 ├── .prettierrc               <-- prettier configuration

@@ -29,8 +29,7 @@
     "@laconia/core": "^1.11.0",
     "aws-sdk": "^2.847.0",
     "lodash": "^4.17.20",
-    "pino": "^6.11.1",
-    "wordlist-english": "^1.2.1"
+    "pino": "^6.11.1"
   },
   "devDependencies": {
     "ava": "^3.15.0",

@@ -1,3 +1,4 @@
+const _ = require("lodash");
 const words = require("./words.json");
 const log = require("./logUtil");
 /**
@@ -6,6 +7,7 @@ const log = require("./logUtil");
  */
 function findLetterCombinations(digits) {
   // if there are somehow not any digits
+  if (_.isNil(digits)) return [];
   if (!digits.length) return [];
   // if there is a character that is not included in the mapping return an empty array
   if (digits.includes("0") || digits.includes("1")) return [];
