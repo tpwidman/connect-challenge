@@ -4,12 +4,12 @@ const convert = require('./lib/convert');
 const log = require('./lib/logUtil');
 const { storeInDynamo } = require('./lib/dbMethods');
 
-const instances = ({ env }) => ({
+exports.instances = ({ env }) => ({
     db: new AWS.DynamoDB({
         apiVersion: '2012-08-10'
     }),
     tableName: env.TABLE_NAME
-  });
+});
   
 exports.app = async (event, { db, tableName }) => {
     try {
@@ -29,4 +29,4 @@ exports.app = async (event, { db, tableName }) => {
     }
 };
   
-exports.handler = laconia(exports.app).register(instances);
+exports.handler = laconia(exports.app).register(exports.instances);
