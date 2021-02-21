@@ -8,16 +8,19 @@ const instances = ({ env }) => ({
     db = new AWS.DynamoDB({
         apiVersion: '2012-08-10'
     }),
-    tableName: env.table
+    tableName: env.TABLE_NAME
   });
   
 exports.app = async (event, { db, tableName }) => {
     try {
         const initialNumber = event.Details.ContactData.CustomerEndpoint.Address;
         const bestVanityNumbers = convert.getVanity(initialNumber);
-        await storeInDynamo(db, initialNumber, bestVanityNumbers, tableName);
+        if(bestVanityNumbers.length > 0){
+            await storeInDynamo(db, initialNumber, bestVanityNumbers, tableName);
+        }
         return {
-            VanityNumbersList: bestVanityNumbers.slice(0, 3).join(', ')
+            vanityNumbersCount: bestVanityNumbers.length,
+            vanityNumbersString: bestVanityNumbers.slice(0, 3).join(', ')
         }
     } catch (error){
         log.error(error.message);
