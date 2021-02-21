@@ -8,14 +8,18 @@ const log = require('./logUtil');
  */
 async function storeInDynamo(db, phoneNumber, vanityNumbers, tableName){
     log.info(`Storing new record in dynamo for ${phoneNumber} with ${vanityNumbers.length} vanity numbers`);
+    var date = new Date();
     const params = {
         TableName: tableName,
         Item: {
+            createdAt: {
+                S: date.toISOString()
+            },
             phoneNumber: {
-                S: phoneNumber
+                S: "+12052624357"
             },
             bestVanityOrdered: {
-                SS: vanityNumbers
+                L: vanityNumbers.map(elem => ({S: elem}))
             }
         }
     }
