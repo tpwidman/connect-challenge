@@ -17,7 +17,7 @@ exports.app = async (event, { db, tableName }) => {
         const bestVanityNumbers = convert.getVanity(initialNumber);
         await storeInDynamo(db, initialNumber, bestVanityNumbers, tableName);
         return {
-            VanityNumbersList: bestVanityNumbers.slice(0, 2).join(', '),
+            VanityNumbersList: bestVanityNumbers.slice(0, 3).join(', ')
         }
     } catch (error){
         log.error(error.message);
