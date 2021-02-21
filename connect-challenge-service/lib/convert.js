@@ -29,7 +29,7 @@ function findLetterCombinations(digits){
             if(words.indexOf(string) > -1){
                 result.push({
                     index: words.indexOf(string),
-                    word: string
+                    word: string.toUpperCase()
                 });
             }
             return;
