@@ -43,7 +43,7 @@ function findLetterCombinations(digits){
 }
 /**
  * @param {String} digits String of digits to digest
- * @returns {String[]} 5 strings with output words, word combinations or words and digits
+ * @returns {String[]} Strings with output words, word combinations, or words and digits
  */
 function findWordCombinations(digits){
     log.info(`Digits: ${digits}`);
