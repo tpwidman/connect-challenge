@@ -5,7 +5,7 @@ const log = require('./lib/logUtil');
 const { storeInDynamo } = require('./lib/dbMethods');
 
 const instances = ({ env }) => ({
-    db = new AWS.DynamoDB({
+    db: new AWS.DynamoDB({
         apiVersion: '2012-08-10'
     }),
     tableName: env.TABLE_NAME
@@ -18,9 +18,10 @@ exports.app = async (event, { db, tableName }) => {
         if(bestVanityNumbers.length > 0){
             await storeInDynamo(db, initialNumber, bestVanityNumbers, tableName);
         }
+        const bestThree = bestVanityNumbers.slice(0, 3);
         return {
-            vanityNumbersCount: bestVanityNumbers.length,
-            vanityNumbersString: bestVanityNumbers.slice(0, 3).join(', ')
+            vanityNumbersCount: bestThree.length,
+            vanityNumbersString: bestThree.join(', ')
         }
     } catch (error){
         log.error(error.message);
