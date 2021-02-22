@@ -18,8 +18,6 @@ This AWS Lambda repository solitary function is to generate vanity numbers from 
 ├── package-lock.json         <-- projects dependencies
 └── README.md                 <-- documentation
 ```
-# Setup 
-
 
 # Requirements
 >Create a Lambda that converts phone numbers to vanity numbers and save the best 5 resulting vanity numbers and the caller's number in a DynamoDB table. "Best" is defined as you see fit - explain your thoughts.
@@ -123,3 +121,6 @@ This guide assumes that the user has an AWS account and has downloaded the cli
 18.  Click on the dropdown "Contact flow / IVR"
 19.  Select the newly created contact flow "VanityNumbersChallenge"
 20.  Call the phone number and it should run the contact flow and new service
+
+### Unit tests
+To generate a coverage report for the unit tests, run `npm run coverage` inside the connect-challenge-service after installing all dependencies including dev dependencies. Coverage at 100% 😃
