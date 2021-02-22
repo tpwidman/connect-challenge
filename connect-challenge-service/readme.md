@@ -62,11 +62,11 @@ function handler(event){
 }
 ```
 
-# Instructions for Installation on AWS
+# Instructions for installation on AWS
 
 This guide assumes that the user has an AWS account and has downloaded the cli
 
-### AWS Cloudformation Installation
+### AWS Cloudformation installation
 
 1.  Download Git repo `git clone [https://github.com/tpwidman/connect-challenge](https://github.com/tpwidman/connect-challenge)`
 2.  Change directories into newly downloaded repository `cd connect-challenge`
@@ -121,6 +121,9 @@ This guide assumes that the user has an AWS account and has downloaded the cli
 18.  Click on the dropdown "Contact flow / IVR"
 19.  Select the newly created contact flow "VanityNumbersChallenge"
 20.  Call the phone number and it should run the contact flow and new service
+
+### Architecture diagram
+![architecture-diagram](https://github.com/tpwidman/connect-challenge/blob/main/Connect%20flow%20diagram.png)
 
 ### Unit tests
 To generate a coverage report for the unit tests, run `npm run coverage` after installing all dependencies including dev dependencies. Coverage at 100% 😃
