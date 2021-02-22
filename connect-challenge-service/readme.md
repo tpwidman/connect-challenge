@@ -46,10 +46,10 @@ The lambda service is heavily dependent on the dictionary of terms for determini
 Also, theres a case of where proper nouns or acronyms would likely be way more valuable than words like prepositions or contractions if you were to add those to the dictionary too. 
 * Ex: 1-800-AMC-HELP is probably more valuable than 1-800-BOB-HELP
 
-Caching is not implemented either. Data could be either retrieved from dynamo or for instance if the lambda is still warm, returned from it's own memory, and not do excessive db writes. The in-memory cache could be implemented like: 
+Caching is not implemented either. Data could be either retrieved from dynamo or redis or for instance if the lambda is still warm, returned from it's own memory, and not do excessive db writes. The in-memory cache could be implemented like: 
 ``` javascript
 //cache
-let number; //<-- above function
+let number; // above function, previous run of lambda would still have this value stored
 let bestVanityNumbers;
 function handler(event){
 	// ...
