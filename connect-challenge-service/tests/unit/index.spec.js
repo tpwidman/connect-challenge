@@ -3,7 +3,7 @@ const AWS = require("aws-sdk");
 const awsMock = require("aws-sdk-mock");
 const _ = require("lodash");
 const { instances, app } = require("../../index");
-const event = require("./sample-connect-event.json");
+const event = require("../sample-connect-event.json");
 
 test.afterEach(() => {
   awsMock.restore();
