@@ -77,22 +77,27 @@ This guide assumes that the user has an AWS account and has downloaded the cli
 5.  Change directories back to the cd connect-challenge
 6.  If making a new bucket, use this: `aws s3 mb s3://connectchallenge022121`
 7.  Run the following AWS command to upload the project to S3, replacing the --s3-bucket with an existing s3 bucket name in the same account. ([More information on the this step](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-cli-package.html))
-    ```aws cloudformation package \
+    ```
+	aws cloudformation package \
         --template cf-template-package.json \
         --s3-bucket connectchallenge022121 \
         --use-json \
         --output-template-file cf-template-deploy.json
     ```
 8.  After running this, run the deploy command as below, either substituting a --stack-name or allowing AWS to create a new one called ConnectChallengeStack
-    ```aws cloudformation deploy \
+    ```
+	aws cloudformation deploy \
     --template-file cf-template-deploy.json \
     --stack-name ConnectChallengeStack \
-    --capabilities CAPABILITY_IAM```
+    --capabilities CAPABILITY_IAM
+	```
 9.  Optionally test the function using this:
 
-    ```aws lambda invoke \
+    ```
+	aws lambda invoke \
     --function-name ConnectChallengeService \
-    --payload "$(cat ./connect-challenge-service/tests/sample-connect-event.json | base64)" response.json```
+    --payload "$(cat ./connect-challenge-service/tests/sample-connect-event.json | base64)" response.json
+	```
 10.  There should be a new file response.json with the response from the lambda as well as a new database record in the newly created DynamoDB table
     
 
