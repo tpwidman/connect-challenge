@@ -123,4 +123,4 @@ This guide assumes that the user has an AWS account and has downloaded the cli
 20.  Call the phone number and it should run the contact flow and new service
 
 ### Unit tests
-To generate a coverage report for the unit tests, run `npm run coverage` inside the connect-challenge-service after installing all dependencies including dev dependencies. Coverage at 100% 😃
+To generate a coverage report for the unit tests, run `npm run coverage` after installing all dependencies including dev dependencies. Coverage at 100% 😃
