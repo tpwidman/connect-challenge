@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>Connect Challenge Data</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="googlebot" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/tailwindcss@0.4.1/dist/tailwind.min.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.8/vue.min.js"></script>
+    <script type="text/javascript" src="https://rawgit.com/matfish2/vue-tables-2/master/dist/vue-tables-2.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/axios@0.17.1/dist/axios.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <style id="compiled-css" type="text/css">
+        *, .vue-title {
+            font-family: monospace;
+        }
+        body {
+            background: linear-gradient(#e66465, #9198e5);
+            height: 100vh;
+        }
+        thead tr{
+            background-color: #9198e5;
+        }
+        #app {
+        width: 95%;
+        margin: 0 auto;
+        }
+
+        .VuePagination {
+        text-align: center;
+        }
+
+        .vue-title {
+        text-align: center;
+        margin-bottom: 10px;
+        }
+        
+        th:nth-child(3) {
+        text-align: center;
+        }
+        </style>
+    </head>
+    <h3 class="vue-title">Connect Challenge Data</h3>
+    <div id="app">
+        <div class="col-md-8 col-md-offset-2">
+            <div id="connectData">
+            <v-server-table url="https://poovdui3d8.execute-api.us-east-1.amazonaws.com/prod/get-connect-data" :columns="columns" :options="options">
+            </v-server-table>
+            </div>
+        </div>
+    </div>
+    <script>
+    Vue.use(VueTables.ServerTable);
+
+    new Vue({
+    el: "#connectData",
+    methods: {
+        formatDate(date) {
+        return moment(date).format('DD-MM-YYYY HH:mm:ss');
+        }
+    },
+    data: {
+        columns: ['createdAt', 'phoneNumber', 'bestVanityOrdered'],
+        tableData: [],
+        options: {
+            perPage:25,
+            perPageValues:[25],
+            sortable: ['createdAt'],
+            responseAdapter({data}) {
+                return {
+                    data,
+                    count: data.length
+                }
+            },
+            filterable: false,
+            templates: {
+                    created_at(h, row) {
+                    return this.formatDate(row.created_at);
+                }
+            }
+        }
+    }
+    });
+    </script>
+</html>
