@@ -1,0 +1,116 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Transform": "AWS::Serverless-2016-10-31",
+    "Parameters": {
+        "TableName": {
+            "Default": "ConnectChallengeDB",
+            "Description": "DynamoDB database table name",
+            "Type": "String",
+            "MinLength": "1",
+            "MaxLength": "64",
+            "AllowedPattern": "[a-zA-Z][a-zA-Z0-9]*",
+            "ConstraintDescription": "must begin with a letter and contain only alphanumeric characters."
+        },
+        "LambdaName": {
+            "Default": "ConnectChallengeService",
+            "Description": "Lambda function name",
+            "Type": "String",
+            "MinLength": "1",
+            "MaxLength": "64",
+            "AllowedPattern": "[a-zA-Z][a-zA-Z0-9]*",
+            "ConstraintDescription": "must begin with a letter and contain only alphanumeric characters."
+        }
+    },
+    "Resources": {
+        "ConnectChallengeService": {
+            "Type": "AWS::Serverless::Function",
+            "DependsOn": "ConnectChallengeDB",
+            "Properties": {
+                "CodeUri": "./connect-challenge-service/",
+                "Description": "Function which takes incoming call data from Amazon Connect, converts to vanity numbers, updates DynamoDB table with best 5, and returns best 3 values",
+                "Environment": {
+                    "Variables": {
+                        "TABLE_NAME": {
+                            "Ref": "TableName"
+                        },
+                        "LOG_LEVEL": "debug"
+                    }
+                },
+                "FunctionName": {
+                    "Ref": "LambdaName"
+                },
+                "Handler": "index.handler",
+                "Role": {
+                    "Fn::GetAtt" : [ "ConnectServiceRole", "Arn" ] 
+                },
+                "Runtime": "nodejs14.x",
+                "Timeout": 25
+            }
+        },
+        "ConnectChallengeDB": {
+            "Type": "AWS::DynamoDB::Table",
+            "Properties" : {
+                "AttributeDefinitions" : [
+                  {
+                    "AttributeName" : "createdAt",
+                    "AttributeType" : "S"   
+                  }
+                ],
+                "KeySchema" : [
+                  {
+                    "AttributeName" : "createdAt",
+                    "KeyType" : "HASH"
+                  }
+                ],
+                "ProvisionedThroughput" : {
+                  "ReadCapacityUnits" : "5",
+                  "WriteCapacityUnits" : "5"
+                },
+                "TableName" : {
+                    "Ref": "TableName"
+                }
+            }
+        },
+        "ConnectServiceRole": {
+            "Type": "AWS::IAM::Role",
+            "DependsOn": "ConnectChallengeDB",
+            "Properties": {
+                "AssumeRolePolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Principal": {
+                                "Service": "lambda.amazonaws.com"
+                            },
+                            "Action": "sts:AssumeRole"
+                        }
+                    ]
+                },
+                "ManagedPolicyArns": [
+                    "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                ],
+                "Policies": [
+                    {
+                        "PolicyName": "connect-challenge-db-policy-put",
+                        "PolicyDocument": {
+                            "Version": "2012-10-17",
+                            "Statement": [
+                                {
+                                    "Effect": "Allow",
+                                    "Action": "dynamodb:PutItem",
+                                    "Resource": {
+                                        "Fn::GetAtt": [
+                                            "ConnectChallengeDB",
+                                            "Arn"
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}

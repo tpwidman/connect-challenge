@@ -1,0 +1,6 @@
+{
+  "Parameters":{
+    "DBName": "ConnectChallengeDB",
+    "LambdaName": "ConnectChallengeService"
+  }
+}
