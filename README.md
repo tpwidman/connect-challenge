@@ -90,5 +90,5 @@ This guide assumes that the user has an AWS account and has downloaded the cli
 ### Connect Challenge Static Site
 http://connect-table-static.s3-website-us-east-1.amazonaws.com/
 
-### Phone Number
+### Amazon Connect Claimed Phone Number
 +1 213-776-4490
