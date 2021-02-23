@@ -40,7 +40,7 @@ This guide assumes that the user has an AWS account and has downloaded the cli
 1.  Navigate to the Amazon Connect console
 2.  Click "Add an Instance"
 3.  Choose "Store Users within Amazon Connect", add unique instance access url
-4.  Proceed through the installation (I just used all the default options and created an admin role), and Create Instance
+4.  Proceed through the installation, create Admin profile, and Create Instance
 5.  For now, stay in the Amazon Connect console and click on the newly created Instance Alias
 6.  Select "Contact Flows" and scroll down to AWS Lambda
 7.  Select "ContactChallengeService" and click "+Add Lambda Function", this will allow the contact flows to use the new Lambda service.
