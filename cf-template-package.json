@@ -52,14 +52,22 @@
             "Properties" : {
                 "AttributeDefinitions" : [
                   {
-                    "AttributeName" : "createdAt",
+                    "AttributeName" : "id",
                     "AttributeType" : "S"   
+                  },
+                  {
+                    "AttributeName" : "createdAt",
+                    "AttributeType" : "N"   
                   }
                 ],
                 "KeySchema" : [
                   {
-                    "AttributeName" : "createdAt",
+                    "AttributeName" : "id",
                     "KeyType" : "HASH"
+                  },
+                  {
+                    "AttributeName" : "createdAt",
+                    "KeyType" : "RANGE"
                   }
                 ],
                 "ProvisionedThroughput" : {

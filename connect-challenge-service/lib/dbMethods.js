@@ -1,4 +1,5 @@
 const log = require("./logUtil");
+const { v4: uuidv4 } = require('uuid');
 /**
  *
  * @param {Object} db initialized DB client
@@ -10,12 +11,14 @@ async function storeInDynamo(db, phoneNumber, vanityNumbers, tableName) {
   log.info(
     `Storing new record in dynamo for ${phoneNumber} with ${vanityNumbers.length} vanity numbers`
   );
-  const date = new Date();
   const params = {
     TableName: tableName,
     Item: {
+      id:{
+        S: uuidv4()
+      },
       createdAt: {
-        S: date.toISOString(),
+        N: Date.now().toString()
       },
       phoneNumber: {
         S: phoneNumber,

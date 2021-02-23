@@ -6,7 +6,7 @@
     <meta name="robots" content="noindex, nofollow">
     <meta name="googlebot" content="noindex, nofollow">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="https://unpkg.com/tailwindcss@0.4.1/dist/tailwind.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.8/vue.min.js"></script>
     <script type="text/javascript" src="https://rawgit.com/matfish2/vue-tables-2/master/dist/vue-tables-2.min.js"></script>
     <script type="text/javascript" src="https://unpkg.com/axios@0.17.1/dist/axios.min.js"></script>
@@ -17,12 +17,16 @@
             font-family: monospace;
         }
         body {
-            background: linear-gradient(#e66465, #9198e5);
+            background: linear-gradient(#e6646575, #8088d8);
             height: 100vh;
         }
         thead tr{
             background-color: #9198e5;
         }
+        .table-striped>tbody>tr:nth-of-type(even) {
+            background-color: gainsboro;
+        }
+
         #app {
         width: 95%;
         margin: 0 auto;
@@ -43,13 +47,14 @@
         </style>
     </head>
     <h3 class="vue-title">Connect Challenge Data</h3>
-    <div id="app">
-        <div class="col-md-8 col-md-offset-2">
+    <div class="text-center" id="app">
+        <div class="col-md-12">
             <div id="connectData">
             <v-server-table url="https://poovdui3d8.execute-api.us-east-1.amazonaws.com/prod/get-connect-data" :columns="columns" :options="options">
             </v-server-table>
             </div>
         </div>
+        <a class="text-center btn btn-light" href="./lambda-service-coverage/index.html">Unit Test Service Coverage Report</a>
     </div>
     <script>
     Vue.use(VueTables.ServerTable);
@@ -58,7 +63,7 @@
     el: "#connectData",
     methods: {
         formatDate(date) {
-        return moment(date).format('DD-MM-YYYY HH:mm:ss');
+            return moment(date).calendar();
         }
     },
     data: {
@@ -67,7 +72,13 @@
         options: {
             perPage:25,
             perPageValues:[25],
-            sortable: ['createdAt'],
+            sortable: [],
+            requestAdapter(data) {
+                return {
+                    sort: 'createdAt',
+                    direction: 'desc'
+                }
+            },
             responseAdapter({data}) {
                 return {
                     data,
@@ -76,9 +87,14 @@
             },
             filterable: false,
             templates: {
-                    created_at(h, row) {
-                    return this.formatDate(row.created_at);
+                createdAt(h, row) {
+                    console.log(row.createdAt);
+                    return this.formatDate(row.createdAt);
+                },
+                bestVanityOrdered(h, row){
+                    return row.bestVanityOrdered.join(', ');
                 }
+
             }
         }
     }

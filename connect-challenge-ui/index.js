@@ -1,21 +1,11 @@
 const AWS = require('aws-sdk');
-const docClient = new AWS.DynamoDB();
+const docClient = new AWS.DynamoDB.DocumentClient();
 exports.handler = async (event) => {
     const params = {
-      Limit: 5,
       TableName: process.env.TABLE_NAME
     }
     const result = await docClient.scan(params).promise();
-    const output = result.Items.map(item => {
-        const phoneNumber = item.phoneNumber.S;
-        const bestVanityOrdered = item.bestVanityOrdered.L;
-        const createdAt = item.createdAt.S;
-        return {
-            "phoneNumber": phoneNumber,
-            "bestVanityOrdered": bestVanityOrdered.map(({ S }) => S).join(', '),
-            "createdAt": createdAt
-        }
-    })
+    const output = result.Items.sort((a, b) => b.createdAt - a.createdAt).slice(0, 5);
     const response = {
         statusCode: 200,
           headers: {

@@ -80,7 +80,13 @@ This guide assumes that the user has an AWS account and has downloaded the cli
 3. What would you have done with more time? We know you have a life. :-)
 > If I'm answering what I would have done with my weekend, I would have probably done some cleaning around the house or cooked a new recipe. It was too cold to go out, but I really need some fresh air and would've gone hiking.
 >
->If I'm using more time to work on the project, I would've implemented response caching with Elasticache, setup Githooks with my project to my S3 buckets, implemented some security on API Gateway and improved my dictionary of terms by removing some values that aren't great combinations of words.
+>If I'm using more time to work on the project, I would've implemented response caching with Elasticache, setup Githooks with my project to my S3 buckets, implemented some security on API Gateway, implemented a Git commit hook for updating site files and service, and improved my dictionary of terms by removing some values that aren't great combinations of words.
 
 ### Architecture diagram
 ![architecture-diagram](https://github.com/tpwidman/connect-challenge/blob/main/Connect%20flow%20diagram.png)
+
+### Connect Challenge Static Site
+http://connect-table-static.s3-website-us-east-1.amazonaws.com/
+
+### Phone Number
++1 213-776-4490
